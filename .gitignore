@@ -9,3 +9,6 @@ tags
 *.gch
 *.exe
 *~
+*.doc
+*.docx
+*.pdf
