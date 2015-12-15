@@ -1,6 +1,6 @@
 /*
-Problem : 1001 ( Sum Problem )     Judge Status : Wrong Answer
-RunId : 15860308    Language : C    Author : NEWPLAN
+Problem : 1001 ( Sum Problem )     Judge Status : Accepted
+RunId : 15867008    Language : C    Author : NEWPLAN
 Code Render Status : Rendered By HDOJ C Code Render Version 0.01 Beta
 
 */
@@ -22,7 +22,7 @@ int main(void)
             k=j/2;
             k*=i;
         }
-        printf("%d\n",k);
+        printf("%d\n\n",k);
     }
     return 0;
 }
