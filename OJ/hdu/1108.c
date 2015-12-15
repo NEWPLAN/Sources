@@ -1,3 +1,8 @@
+/*
+Problem : 1108 ( 最小公倍数 )     Judge Status : Accepted
+RunId : 15869390    Language : C    Author : NEWPLAN
+Code Render Status : Rendered By HDOJ C Code Render Version 0.01 Beta
+*/
 #include<stdio.h>
 
 int gcd(int a,int b)
