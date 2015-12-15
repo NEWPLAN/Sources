@@ -2,8 +2,8 @@
 Problem : 1001 ( Sum Problem )     Judge Status : Accepted
 RunId : 15867008    Language : C    Author : NEWPLAN
 Code Render Status : Rendered By HDOJ C Code Render Version 0.01 Beta
-
 */
+
 #include <stdio.h>
 
 int main(void)
