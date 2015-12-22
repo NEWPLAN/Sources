@@ -254,6 +254,7 @@ void menu(STU *stu_first,char *gfirst,char *gsave,STU *stu_end,char password[]) 
                     break;
                 }
                 summarystu(stu_first);
+                system("pause");
                 break;
 
             case'7':                        //÷ÿ…Ë√‹¬Î
@@ -267,7 +268,7 @@ void menu(STU *stu_first,char *gfirst,char *gsave,STU *stu_end,char password[]) 
         }
         while(choice<'0'||choice>'7');
 
-        //system("cls");
+        system("cls");
     }
     while(1);
 }
