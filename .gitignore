@@ -2,8 +2,6 @@ test
 tags
 *.out
 *.o
-*.a
-*.so
 *.gch
 *.exe
 *~
