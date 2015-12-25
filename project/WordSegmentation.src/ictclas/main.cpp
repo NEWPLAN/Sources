@@ -41,11 +41,15 @@
 #define PATH_MAX 1024
 #endif
 
+/**********************************************************
+*	获取可执行文件的路径
+**********************************************************/
 char * get_exe_path()
 {
     static char buf[PATH_MAX];
     int rslt=readlink("/proc/self/exe",buf,PATH_MAX);
-    if (rslt<0||rslt>=PATH_MAX) return NULL;
+    if (rslt<0||rslt>=PATH_MAX) 
+    	return NULL;
     while (buf[--rslt]!='/')
     {
         buf[rslt]='\0';
@@ -57,6 +61,11 @@ char * get_exe_path()
 #include "Source/Result.h"
 using namespace std;
 
+/************************************************************
+*	主程序入口函数
+*
+*
+*************************************************************/
 int main(int argc, char* argv[])
 {
     try

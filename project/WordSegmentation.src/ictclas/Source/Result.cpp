@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////
-//ICTCLAS¼ò½é£º¼ÆËãËùººÓï´Ê·¨·ÖÎöÏµÍ³ICTCLAS(Institute of Computing Technology, Chinese Lexical Analysis System)£¬
-//             ¹¦ÄÜÓÐ£ºÖÐÎÄ·Ö´Ê£»´ÊÐÔ±ê×¢£»Î´µÇÂ¼´ÊÊ¶±ð¡£
-//             ·Ö´ÊÕýÈ·ÂÊ¸ß´ï97.58%(973×¨¼ÒÆÀ²â½á¹û)£¬
-//             Î´µÇÂ¼´ÊÊ¶±ðÕÙ»ØÂÊ¾ù¸ßÓÚ90%£¬ÆäÖÐÖÐ¹úÈËÃûµÄÊ¶±ðÕÙ»ØÂÊ½Ó½ü98%;
-//             ´¦ÀíËÙ¶ÈÎª31.5Kbytes/s¡£
-//Öø×÷È¨£º  Copyright?2002-2005ÖÐ¿ÆÔº¼ÆËãËù Ö°ÎñÖø×÷È¨ÈË£ºÕÅ»ªÆ½ ÁõÈº
-//×ñÑ­Ð­Òé£º×ÔÈ»ÓïÑÔ´¦Àí¿ª·Å×ÊÔ´Ðí¿ÉÖ¤1.0
+//ICTCLASç®€ä»‹ï¼šè®¡ç®—æ‰€æ±‰è¯­è¯æ³•åˆ†æžç³»ç»ŸICTCLAS(Institute of Computing Technology, Chinese Lexical Analysis System)ï¼Œ
+//             åŠŸèƒ½æœ‰ï¼šä¸­æ–‡åˆ†è¯ï¼›è¯æ€§æ ‡æ³¨ï¼›æœªç™»å½•è¯è¯†åˆ«ã€‚
+//             åˆ†è¯æ­£ç¡®çŽ‡é«˜è¾¾97.58%(973ä¸“å®¶è¯„æµ‹ç»“æžœ)ï¼Œ
+//             æœªç™»å½•è¯è¯†åˆ«å¬å›žçŽ‡å‡é«˜äºŽ90%ï¼Œå…¶ä¸­ä¸­å›½äººåçš„è¯†åˆ«å¬å›žçŽ‡æŽ¥è¿‘98%;
+//             å¤„ç†é€Ÿåº¦ä¸º31.5Kbytes/sã€‚
+//è‘—ä½œæƒï¼š  Copyright?2002-2005ä¸­ç§‘é™¢è®¡ç®—æ‰€ èŒåŠ¡è‘—ä½œæƒäººï¼šå¼ åŽå¹³ åˆ˜ç¾¤
+//éµå¾ªåè®®ï¼šè‡ªç„¶è¯­è¨€å¤„ç†å¼€æ”¾èµ„æºè®¸å¯è¯1.0
 //Email: zhanghp@software.ict.ac.cn
 //Homepage:www.nlp.org.cn;mtgroup.ict.ac.cn
 // Result.cpp: implementation of the CResult class.
@@ -69,11 +69,11 @@ CResult::CResult(const char * strDataPath)
     */
     /*
 
-    	m_dictCore.AddItem("Ê®·Ö",'d'*256,+500);
-    	m_dictCore.AddItem("Ê®·Ö",'m'*256,-500);
-    	m_dictCore.AddItem("ÎÒ¹ú",'n'*256,-2000);
-    	m_dictCore.AddItem("ÎÒ¹ú",'r'*256,+2000);
-    	m_dictCore.AddItem("Ç§Äê",'t'*256,200);
+    	m_dictCore.AddItem("ååˆ†",'d'*256,+500);
+    	m_dictCore.AddItem("ååˆ†",'m'*256,-500);
+    	m_dictCore.AddItem("æˆ‘å›½",'n'*256,-2000);
+    	m_dictCore.AddItem("æˆ‘å›½",'r'*256,+2000);
+    	m_dictCore.AddItem("åƒå¹´",'t'*256,200);
 
         m_dictCore.Optimum();
     	m_dictCore.Save("data\\coreDictOptimum.dct");
@@ -300,7 +300,7 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
         bProcessed=false;
 
         //Rule1: adjust person name
-        if(pItem[i].nHandle==28274&&ChineseNameSplit(pItem[i].sWord,sSurName,sSurName2,sGivenName,m_uPerson.m_dict)&&strcmp(pItem[i].sWord,"Ò¶ÀûÇÕ")!=0)//'nr'
+        if(pItem[i].nHandle==28274&&ChineseNameSplit(pItem[i].sWord,sSurName,sSurName2,sGivenName,m_uPerson.m_dict)&&strcmp(pItem[i].sWord,"å¶åˆ©é’¦")!=0)//'nr'
         {
             //Divide name into surname and given name
 
@@ -321,7 +321,7 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
             }
             bProcessed=true;
         }
-        //Rule2 for overlap words ABB Ò»¶Î¶Î¡¢Ò»Æ¬Æ¬
+        //Rule2 for overlap words ABB ä¸€æ®µæ®µã€ä¸€ç‰‡ç‰‡
         else if(pItem[i].nHandle==27904&&strlen(pItem[i+1].sWord)==2&&strcmp(pItem[i+1].sWord,pItem[i+2].sWord)==0)
         {
             //(pItem[i+1].nHandle/256=='q'||pItem[i+1].nHandle/256=='a')&&
@@ -351,7 +351,7 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
             i+=1;
             if(strlen(pItem[i+1].sWord)==2)
             {
-                //AAB:Ï´/Ï´/Á³¡¢ÃÉÃÉÁÁ
+                //AAB:æ´—/æ´—/è„¸ã€è’™è’™äº®
                 if((pItemRet[j].nHandle==30208&&pItem[i+1].nHandle/256=='n')||
                         (pItemRet[j].nHandle==24832&&pItem[i+1].nHandle/256=='a')
                   )
@@ -364,7 +364,7 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
             bProcessed=true;
         }
 
-        //Rule 4: AAB Ï´/Ï´Ôè
+        //Rule 4: AAB æ´—/æ´—æ¾¡
         else if(nLen==2&&strncmp(pItem[i].sWord,pItem[i+1].sWord,2)==0&&strlen(pItem[i+1].sWord)==4&&(pItem[i].nHandle/256=='v'||pItem[i].nHandle==24832))//v,a
         {
             strcpy(pItemRet[j].sWord,pItem[i].sWord);
@@ -384,7 +384,7 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
             pItem[i].nHandle='u'*256;
         else if(nLen==2&&strncmp(pItem[i].sWord,pItem[i+1].sWord,2)==0&&strlen(pItem[i+1].sWord)==4&&strncmp(pItem[i+1].sWord+2,pItem[i+2].sWord,2)==0)
         {
-            //AABB ÆÓÆÓËØËØ Ö¦Ö¦Ò¶Ò¶
+            //AABB æœ´æœ´ç´ ç´  æžæžå¶å¶
             strcpy(pItemRet[j].sWord,pItem[i].sWord);
             strcat(pItemRet[j].sWord,pItem[i+1].sWord);
             strcat(pItemRet[j].sWord,pItem[i+2].sWord);
@@ -404,7 +404,7 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
                 j+=1;
                 bProcessed=true;
             }
-            else if(strlen(pItem[i+1].sWord)==2&&CC_Find("¶Ó",pItem[i+1].sWord))
+            else if(strlen(pItem[i+1].sWord)==2&&CC_Find("é˜Ÿ",pItem[i+1].sWord))
             {
                 strcpy(pItemRet[j].sWord,pItem[i].sWord);
                 strcat(pItemRet[j].sWord,pItem[i+1].sWord);
@@ -413,7 +413,7 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
                 j+=1;
                 bProcessed=true;
             }
-            else if(strlen(pItem[i+1].sWord)==2&&CC_Find("ÓïÎÄ×Ö±­",pItem[i+1].sWord))
+            else if(strlen(pItem[i+1].sWord)==2&&CC_Find("è¯­æ–‡å­—æ¯",pItem[i+1].sWord))
             {
                 strcpy(pItemRet[j].sWord,pItem[i].sWord);
                 strcat(pItemRet[j].sWord,pItem[i+1].sWord);
@@ -422,7 +422,7 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
                 j+=1;
                 bProcessed=true;
             }
-            else if(strlen(pItem[i+1].sWord)==2&&CC_Find("Òá",pItem[i+1].sWord))
+            else if(strlen(pItem[i+1].sWord)==2&&CC_Find("è£”",pItem[i+1].sWord))
             {
                 strcpy(pItemRet[j].sWord,pItem[i].sWord);
                 strcat(pItemRet[j].sWord,pItem[i+1].sWord);
@@ -434,7 +434,7 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
         }
         else if(pItem[i].nHandle==30208||pItem[i].nHandle==28160)//v
         {
-            if(strlen(pItem[i+1].sWord)==2&&CC_Find("Ô±",pItem[i+1].sWord))
+            if(strlen(pItem[i+1].sWord)==2&&CC_Find("å‘˜",pItem[i+1].sWord))
             {
                 strcpy(pItemRet[j].sWord,pItem[i].sWord);
                 strcat(pItemRet[j].sWord,pItem[i+1].sWord);
@@ -446,10 +446,10 @@ bool CResult::Adjust(PWORD_RESULT pItem,PWORD_RESULT pItemRet)
         }
         else if(pItem[i].nHandle==28280)
         {
-            //www/nx ./w sina/nx; £Å£É£Í/nx  -£¶£°£±/m
+            //www/nx ./w sina/nx; ï¼¥ï¼©ï¼­/nx  -ï¼–ï¼ï¼‘/m
             strcpy(pItemRet[j].sWord,pItem[i].sWord);
             pItemRet[j].nHandle=28280;
-            while(pItem[i+1].nHandle==28280||strstr(".£®",pItem[i+1].sWord)||(pItem[i+1].nHandle==27904&&IsAllNum((unsigned char *)pItem[i+1].sWord)))
+            while(pItem[i+1].nHandle==28280||strstr(".ï¼Ž",pItem[i+1].sWord)||(pItem[i+1].nHandle==27904&&IsAllNum((unsigned char *)pItem[i+1].sWord)))
             {
                 strcat(pItemRet[j].sWord,pItem[i+1].sWord);
                 i+=1;
@@ -498,11 +498,11 @@ bool CResult::ParagraphProcessing(char *sParagraph,char *sResult)
         }
         nPosIndex+=1;
         /*
-        #define  SEPERATOR_C_SENTENCE "¡££¡£¿£º£»¡­"
-        #define  SEPERATOR_C_SUB_SENTENCE "¡¢£¬£¨£©¡°¡±¡®¡¯"
+        #define  SEPERATOR_C_SENTENCE "ã€‚ï¼ï¼Ÿï¼šï¼›â€¦"
+        #define  SEPERATOR_C_SUB_SENTENCE "ã€ï¼Œï¼ˆï¼‰â€œâ€â€˜â€™"
         #define  SEPERATOR_E_SENTENCE "!?:;"
         #define  SEPERATOR_E_SUB_SENTENCE ",()\042'"
-        #define  SEPERATOR_LINK "\n\r ¡¡"
+        #define  SEPERATOR_LINK "\n\r ã€€"
         */
         if(CC_Find(SEPERATOR_C_SENTENCE,sChar)||CC_Find(SEPERATOR_C_SUB_SENTENCE,sChar)||strstr(SEPERATOR_E_SENTENCE,sChar)||strstr(SEPERATOR_E_SUB_SENTENCE,sChar)||strstr(SEPERATOR_LINK,sChar))
         {
@@ -651,7 +651,7 @@ bool CResult::ChineseNameSplit(char *sPersonName, char *sSurname, char *sSurname
     strncpy(sTemp,sGivenName,2);
     sTemp[2]=0;
     nFreqGiven=personDict.GetFrequency(sTemp,2);
-    if(nSurNameLen!=4&&((nSurNameLen==0&&nLen>4)||strlen(sGivenName)>4||(GetForeignCharCount(sPersonName)>=3&&nFreq<personDict.GetFrequency((char*)"ÕÅ",1)/40&&nFreqGiven<personDict.GetFrequency((char*)"»ª",2)/20)||(nFreq<10&&GetForeignCharCount(sGivenName)==(nLen-nSurNameLen)/2)))
+    if(nSurNameLen!=4&&((nSurNameLen==0&&nLen>4)||strlen(sGivenName)>4||(GetForeignCharCount(sPersonName)>=3&&nFreq<personDict.GetFrequency((char*)"å¼ ",1)/40&&nFreqGiven<personDict.GetFrequency((char*)"åŽ",2)/20)||(nFreq<10&&GetForeignCharCount(sGivenName)==(nLen-nSurNameLen)/2)))
         return false;
     if(nLen==4&&m_uPerson.IsGivenName(sPersonName))
     {

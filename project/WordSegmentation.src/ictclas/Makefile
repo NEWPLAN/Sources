@@ -21,6 +21,11 @@ $(TARGET2): $(Cfile1) $(LIBNeeds)
 $(LIBNeeds):
 	cd Source ; make
 
+reinstall:
+	cd Source;make clean;
+	make install;
+	@echo "finished install"
+
 install:
 	cd Source; make install
 
@@ -31,4 +36,5 @@ uninstall:
 .PHONY:clean
 clean:
 #	cd Source; make clean
-	rm $(TARGET1) $(TARGET2) ;  echo "clean done!"
+	-rm $(TARGET1) $(TARGET2);clear 
+	@echo "clean done!"
