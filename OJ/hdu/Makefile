@@ -1,4 +1,4 @@
 all:
 	gcc *.c 
 clean:
-	del *.exe 
+	del *.exe *.o

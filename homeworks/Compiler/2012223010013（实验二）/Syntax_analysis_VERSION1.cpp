@@ -189,7 +189,7 @@ int main(int agrc, char*agrv[])
     error_temp.next=NULL;
     error_temp.read=T_0;
 
-    printf("\t编译原理实验二\n\t2012223010013_程阳\n\t\t—NEWPLAN\n");
+    printf("\t编译原理实验二\n\t2012223010013\n\t\t—NEWPLAN\n");
     current=Read_file(&lex_head);
     system("pause");
 

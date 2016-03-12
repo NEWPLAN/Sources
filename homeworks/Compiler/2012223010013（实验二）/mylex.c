@@ -405,7 +405,7 @@ void write_to_symtab1(char*temp,int count)
 //************************************
 int main(int agrc,char *argv[])
 {
-    printf("\t\t2012223010013 ³ÌÑô\n");
+    printf("\t\t2012223010013\n");
     FILE* symtable1=NULL;
     int num=0;
     if(agrc<2)

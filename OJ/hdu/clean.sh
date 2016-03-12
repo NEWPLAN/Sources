@@ -1,1 +1,1 @@
-make clean
+rm *.exe *.o
