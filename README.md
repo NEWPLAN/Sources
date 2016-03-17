@@ -1,6 +1,5 @@
 # <p align="center">SOURCE</p>
 ====================
-上传本人全部的源码文件 大学期间的作品
-
+This folfer contains all source codes i have written during my whole life as a ungraduated student in University of Electronic Science and Technology of China
 
 <p align="right">NEWPLAN In ChengDu</p>
