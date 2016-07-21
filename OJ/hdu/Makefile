@@ -1,4 +1,3 @@
-all:
-	gcc *.c 
+
 clean:
-	del *.exe *.o
+	-rm a.out; clear
