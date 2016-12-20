@@ -1,5 +1,37 @@
 # <p align="center">SOURCE</p>
 ====================
-This folder contains all source codes i have written during my whole life as an ungraduated student in the University of Electronic Science and Technology of China (UESTC).
 
-<p align="right">NEWPLAN In ChengDu</p>
+<a name="Menu"></a>
+##Menu
+[Menu](#Menu)</br>
+[Declaration](#Declaration)</br>
+[basic-tools](#basic-tools)</br>
+[homeworks](#homeworks)</br>
+[OJ](#OJ)</br>
+[project](#project)</br>
+
+<a name="Declaration"></a>
+##[Declaration](#Menu)
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;This folder contains all source codes i have written since i study as an ungraduated student in the University of Electronic Science and Technology of China (UESTC).</p>
+
+<h2>this is the basic structure of this folders.</h2>
+
+<a name="basic-tools"></a>
+##[basic-tools](#Menu)
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;A set of useful tools configuration, including sublime3, vim ,etc. In fact i just push some basic configuration and you are suppose to install a lot of plugins and programs to make it run correctly according some more informations in details.</p>
+
+<a name="homeworks"></a>
+##[homeworks](#Menu)
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;In this folder, i just push interesting homework source-code during my whole life as a student, including as a ungraduated student in UESTC and graduated student in THU, i will push as much as i can in future.</p>
+
+<a name="OJ"></a>
+##[OJ](#Menu)
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;This folder is which i push some interesting codes in for ACM projects i have met, including CCF,POJ,NYU,HDU, etc. Hope you enjoy it.</p>
+
+<a name="project"></a>
+##[project](#Menu)
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;A folder contains of some useful proj-src, including split for Chinese(using ICTCLAS and FCISO[a fast homemade spliter for Chinese]), PDF parser, email parser and etc..</p>
+
+<h1> Hope u enjoy it</h1>
+
+<p align="right">NEWPLAN</p>
