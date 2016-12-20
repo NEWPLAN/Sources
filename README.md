@@ -14,7 +14,7 @@
 ##[Declaration](#Menu)
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;This folder contains all source codes i have written since i study as an ungraduated student in the University of Electronic Science and Technology of China (UESTC).</p>
 
-<h2>this is the basic structure of this folders.</h2>
+<h2 align="center">this is the basic structure of this folders.</h2>
 
 <a name="basic-tools"></a>
 ##[basic-tools](#Menu)
@@ -32,6 +32,6 @@
 ##[project](#Menu)
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;A folder contains of some useful proj-src, including split for Chinese(using ICTCLAS and FCISO[a fast homemade spliter for Chinese]), PDF parser, email parser and etc..</p>
 
-<h1> Hope u enjoy it</h1>
+<h1 align="center"> Hope u enjoy it</h1>
 
 <p align="right">NEWPLAN</p>
