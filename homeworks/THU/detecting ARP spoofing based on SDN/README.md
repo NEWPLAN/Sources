@@ -20,7 +20,7 @@
 <h5>step 2:</h5>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 1, you are supposed to add the src correctly, then, you should regist the module into file ( path: <b>src/main/resources/META-INF/services/net.floodlightcontroller.core.module.IFloodlightModule</b>) by adding <b>net.floodlightcontroller.proxyarp.ProxyArp</b> to that (appending it at the end of the file is ok).</p>
 <h5>step 3:</h5>
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 2, you should regsit for another thing. regist the <b>net.floodlightcontroller.proxyarp.ProxyArp</b> module in <b>/src/main/resources/floodlightdefault.properties</b> (by adding it at the end of module variable(named <b>floodlight.modules</b>),it necessary to the exactly position to make it run correctly).</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 2, you should regsit for another thing. regist the <b>net.floodlightcontroller.proxyarp.ProxyArp</b> module in <b>/src/main/resources/floodlightdefault.properties</b> (by adding it at the end of module variable(named <b>floodlight.modules</b>), it necessary to the exactly position to make it run correctly).</p>
 <h5>step 4:</h5>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After the above-mentioned steps, you are supposed to install it well, so you can run it then. you should first start floodlight (<b>cd floodlight && ant && java -jar target/floodlight.jar</b>) and mininet (<b>cd mininet && sudo python topol.py</b>), then you can using commands (<b>in run.sh</b>) to test.</p>
 
