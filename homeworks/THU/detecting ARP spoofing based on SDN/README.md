@@ -12,12 +12,13 @@
 <h2>Required modules</h2>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;There are two main components required, the first one is mininet(This can be describe as a data-plane, a topology or simulator of a real networks, including switchs, hosts, links and etc., it is based on python so you are supposed to check your python tools work well.); the second one is floodlight (It is a controller for SDN, the control-plane, linking to data-plane, it can be used to capture the status of data-plane by communicating with them. It is based on java, so, you are supposed to make sure the java eniromnent are deployed well on your computer.).</p>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Besides, we just installed the latest versdion of mininet and floodlight, during our experiment, there are several fatal error confusing us a lot, in general, we think that:</br><b>python (version) >= 3.4</b>;</br><b>java  (version)  >= 1.8</b> </br>are required.</p>
-<h2>how to play...</h2>
+
+<h2>How to play...</h2>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;There are several steps in details to help you make these codes run correctly.</p>
 <h5>step 1:</h5>
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Adding ProxyArp as floodlightcontroller.proxyarp inside path: <b>src/main/java</b>, this is easy to be done, as you can just copy the packet(proxyarp) into the mentioned path before. Besides, if you want to add it in an visual environment like eclipse(don't forget adjust the java system), you can just create a new package named <b>'floodlightcontroller.proxyarp'</b>, then creat a new java class named 'ProxyArp' and copy the src in packet(proxyarp) to it.</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Adding ProxyArp as floodlightcontroller.proxyarp inside path: <b>src/main/java</b>, this is easy to be done, as you can just copy the packet(<b>proxyarp</b>) into the mentioned path before. Besides, if you want to add it in an visual environment like eclipse(do not forget adjust the java system), you can just create a new package named <b>'floodlightcontroller.proxyarp'</b>, then creat a new java class named 'ProxyArp' and copy the src in packet(proxyarp) to it.</p>
 <h5>step 2:</h5>
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 1, you are supposed to add the src correctly, then, you should regist the module into file<path: <b>src/main/resources/META-INF/services/net.floodlightcontroller.core.module.IFloodlightModule</b>> by adding 'net.floodlightcontroller.proxyarp.ProxyArp' to that, (appending it at the end of the file is ok).</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 1, you are supposed to add the src correctly, then, you should regist the module into file ( path: <b>src/main/resources/META-INF/services/net.floodlightcontroller.core.module.IFloodlightModule</b>) by adding <b>net.floodlightcontroller.proxyarp.ProxyArp</b> to that (appending it at the end of the file is ok).</p>
 <h5>step 3:</h5>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 2, you should regsit for another thing. regist the 'net.floodlightcontroller.proxyarp.ProxyArp' module in '/src/main/resources/floodlightdefault.properties'(by adding it at the end of module variable(named floodlight.modules),it necessary to the exactly position to make it run correctly).</p>
 <h5>step 4:</h5>
