@@ -25,7 +25,7 @@
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After the above-mentioned steps, you are supposed to install it well, so you can run it then. you should first start floodlight (<b>cd floodlight && ant && java -jar target/floodlight.jar</b>) and mininet (<b>cd mininet && sudo python topol.py</b>), then you can using commands (<b>in run.sh</b>) to test.</p>
 
 <h2>Future work</h2>
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;During the whole experiment, there is a strong assumption: we trust in the controller absolutely, this is not reasonable and weak, we have found that, the controller has a naive learning ability, which leads to fatal vulnerabilities, causing the controller is so naive that it cannot judge if the pair of MAC and ip is correct, then it just add this pair into their recording. this is challengeable and should be taken into consideration.</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;During the whole experiment, there is a strong assumption: we trust in the controller absolutely, this is not reasonable and weak, we have found that, the controller has a naive learning ability, which leads to fatal vulnerabilities, causing the controller is so naive that it cannot judge if the pair of MAC and IP is matched correctly, then it just add this pair into their recording. this is challengeable and should be taken into consideration.</p>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Besides, how to deal with moveable situation is another problem and how to deal with IPV6 is another question need to de done in further work.</p>
 
-<p align="right">NEWPLAN</p>
+<p align="right">NEWPLAN</br>2016.12.20</p>
