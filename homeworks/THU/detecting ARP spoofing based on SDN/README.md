@@ -14,15 +14,17 @@
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Besides, we just installed the latest versdion of mininet and floodlight, during our experiment, there are several fatal error confusing us a lot, in general, we think that:</br><b>python (version) >= 3.4</b>;</br><b>java  (version)  >= 1.8</b> </br>are required.</p>
 <h2>how to play...</h2>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;There are several steps in details to help you make these codes run correctly.</p>
-<h3>step 1:</h3>
+<h5>step 1:</h5>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Adding ProxyArp as floodlightcontroller.proxyarp inside path: <b>src/main/java</b>, this is easy to be done, as you can just copy the packet(proxyarp) into the mentioned path before. Besides, if you want to add it in an visual environment like eclipse(don't forget adjust the java system), you can just create a new package named <b>'floodlightcontroller.proxyarp'</b>, then creat a new java class named 'ProxyArp' and copy the src in packet(proxyarp) to it.</p>
-<h3>step 2:</h3>
+<h5>step 2:</h5>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 1, you are supposed to add the src correctly, then, you should regist the module into file<path: <b>src/main/resources/META-INF/services/net.floodlightcontroller.core.module.IFloodlightModule</b>> by adding 'net.floodlightcontroller.proxyarp.ProxyArp' to that, (appending it at the end of the file is ok).</p>
-<h3>step 3:</h3>
+<h5>step 3:</h5>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 2, you should regsit for another thing. regist the 'net.floodlightcontroller.proxyarp.ProxyArp' module in '/src/main/resources/floodlightdefault.properties'(by adding it at the end of module variable(named floodlight.modules),it necessary to the exactly position to make it run correctly).</p>
-<h3>step 4:</h3>
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After the above-mentioned steps, you are supposed to install it well, so you can run it then.</p>
+<h5>step 4:</h5>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After the above-mentioned steps, you are supposed to install it well, so you can run it then. you should first start floodlight (cd floodlight && ant && java -jar target/floodlight.jar) and mininet (cd mininet sudo python topol.py), then you can using commands in run.sh to test.</p>
 
-<h1 align="center"> Hope u enjoy it</h1>
+<h2>Future work</h2>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;During the whole experiment, there is a strong assumption: we trust in the controller absolutely, this is not reasonable and weak, we have found that, the controller has a naive learning ability, which leads to fatal vulnerabilities, causing the controller is so naive that it cannot judge if the pair of MAC and ip is correct, then it just add this pair into their recording. this is challengeable and should be taken into consideration.</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Besides, how to deal with moveable situation is another problem and how to deal with IPV6 is another question need to de done in further work.</p>
 
 <p align="right">NEWPLAN</p>
