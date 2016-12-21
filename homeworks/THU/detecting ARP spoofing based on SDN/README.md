@@ -18,7 +18,7 @@
 <h5>step 1:</h5>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Adding ProxyArp as floodlightcontroller.proxyarp inside path: <b>src/main/java</b>, this is easy to be done, as you can just copy the packet(<b>proxyarp</b>) into the mentioned path before. Besides, if you want to add it in an visual environment like eclipse(do not forget adjust the java system), you can just create a new package named <b>'floodlightcontroller.proxyarp'</b>, then creat a new java class named 'ProxyArp' and copy the src in packet(proxyarp) to it.</p>
 <h5>step 2:</h5>
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 1, you are supposed to add the src correctly, then, you should regist the module into file ( path: <b>src/main/resources/META-INF/services/net.floodlightcontroller.core.module.IFloodlightModule</b>) by adding <b>net.floodlightcontroller.proxyarp.ProxyArp</b> to that (appending it at the end of the file is ok).</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 1, you are supposed to add the src correctly, then, you should regist the module into file ( path : <b>src/main/resources/META-INF/services/net.floodlightcontroller.core.module.IFloodlightModule</b>) by adding the following string : <b>net.floodlightcontroller.proxyarp.ProxyArp</b> to that (appending it at the end of the file is ok).</p>
 <h5>step 3:</h5>
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;After step 2, you should regsit for another thing. regist the <b>net.floodlightcontroller.proxyarp.ProxyArp</b> module in <b>/src/main/resources/floodlightdefault.properties</b> (by adding it at the end of module variable(named <b>floodlight.modules</b>), it necessary to the exactly position to make it run correctly).</p>
 <h5>step 4:</h5>
