@@ -1,7 +1,7 @@
 # <p align="center">detecting ARP spoofing based on SDN</p>
 ====================
 <h2>Introduction</h2>
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;This is a simple tool to prevent ARP-spoofing attack based on SDN, there are two part insides: control plane and data plane, besides, we create some useful tool to construct arp packet, they are described as follow in detail.</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;This is a simple tool to prevent ARP-spoofing attack based on SDN, there are two parts insides: control plane and data plane, besides, we create some useful tool to construct arp packet, they are described as follow in detail.</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the <b>ProxyArp.java</b> in proxyarp is the detection module, it should be add in control plane.</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the <b>topol.py</b> in mininet is the simulation module, it should be add in data plane.</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the <b>arping.py</b> in mininet is a basic tool to construct a arp.request packet and send it out.</p>
