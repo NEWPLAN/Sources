@@ -7,12 +7,12 @@
 [Declaration](#Declaration)</br>
 [basic-tools](#basic-tools)</br>
 [homeworks](#homeworks)</br>
-[OJ](#OJ)</br>
+[Online_Judgement](#Online_Judgement)</br>
 [project](#project)</br>
 
 <a name="Declaration"></a>
 ##[Declaration](#Menu)
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;This folder contains all source codes i have written since i study as an ungraduated student in the University of Electronic Science and Technology of China (UESTC).</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;This folder contains all source codes i have written since i study as an ungraduated student, ecpect bug free, anyone who finds any bugs, please let me know.</p>
 
 <h2 align="center">this is the basic structure of this folders.</h2>
 
@@ -22,10 +22,10 @@
 
 <a name="homeworks"></a>
 ##[homeworks](#Menu)
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;In this folder, i just push interesting homework source-code during my whole life as a student, including as a ungraduated student in UESTC and graduated student in THU, i will push as much as i can in future.</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;In this folder, i want to push interesting homework source-code during my whole life as a student, including as a ungraduated student and graduated student, i will push as much as i can in future.</p>
 
-<a name="OJ"></a>
-##[OJ](#Menu)
+<a name="Online_Judgement"></a>
+##[Online_Judgement](#Menu)
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;This folder is which i push some interesting codes in for ACM projects i have met, including CCF,POJ,NYU,HDU, etc. Hope you enjoy it.</p>
 
 <a name="project"></a>
