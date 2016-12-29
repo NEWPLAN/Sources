@@ -18,7 +18,7 @@ int main(){
 		int all = A+B;
 		int flag = -1,temp = 0;
 		for(int i = 1; i <= N ; i ++){
-			sum[i] = sum[i-1]+C[i]; //前面所需的总和
+			sum[i] = sum[i-1]+C[i]; //脟掳脙忙脣霉脨猫碌脛脳脺潞脥
 			if(all < sum[i]){
 				flag = i-1;
 				break;
