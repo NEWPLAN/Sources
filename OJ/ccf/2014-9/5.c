@@ -107,7 +107,7 @@ void initstates(void)
 
 }
 
-void FastExponentiation(unsigned int** src, unsigned int ** results, long long times)
+void FastExponentiation(unsigned int src[][128], unsigned int results[][128], long long times)
 {
 	if (times == 1)
 	{
@@ -115,13 +115,15 @@ void FastExponentiation(unsigned int** src, unsigned int ** results, long long t
 		return;
 	}
 	unsigned int sss[128][128] = {0};
+	long long temp = 0;
 	FastExponentiation(src, sss, times / 2);
 	int i, j, k;
 	for (i = 0; i < 0x80; i++)
 		for (j = 0; j < 0x80; j++)
 			for (k = 0; k < 0x80; k++)
 			{
-				results[i][j] += sss[i][k] * sss[k][j];
+				temp = (long long)sss[i][k] * sss[k][j];
+				results[i][j] += (temp % M) ;
 				results[i][j] %= M;
 			}
 	if (times % 2)
@@ -131,7 +133,8 @@ void FastExponentiation(unsigned int** src, unsigned int ** results, long long t
 			for (j = 0; j < 0x80; j++)
 				for (k = 0; k < 0x80; k++)
 				{
-					results[i][j] += sss[i][k] * src[k][j];
+					temp = (long long)sss[i][k] * src[k][j];
+					results[i][j] += (temp % M);
 					results[i][j] %= M;
 				}
 	}
