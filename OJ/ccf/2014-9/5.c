@@ -22,6 +22,7 @@ int getposition(char a)
 void getnext(char nnn,char input,char output,int blocks)
 {
     int index =getposition(input);
+    if(index >= Mval) return;
     switch(blocks)
     {
     case 1:
@@ -31,7 +32,7 @@ void getnext(char nnn,char input,char output,int blocks)
             return ;
         input+=((1<<index)+(1<<(index+1)));
         output+=(1<<index);
-        if(input==((1<<Mval)-1))//到达一个可行状态,删除一个可行状态，进行下一步迭代
+        if(input==((1<<Mval)-1))   //到达一个可行状态,删除一个可行状态，进行下一步迭代
         {
 #if __DEBUG__
             printf("reachalbe from %x to %x\n",nnn,output);
@@ -51,7 +52,7 @@ void getnext(char nnn,char input,char output,int blocks)
             return ;
         input+=((1<<index)+(1<<(index+1)));
         output+=(1<<(index+1));
-        if(input==((1<<Mval)-1))//到达一个可行状态,删除一个可行状态，进行下一步迭代
+        if(input==((1<<Mval)-1))   //到达一个可行状态,删除一个可行状态，进行下一步迭代
         {
 #if __DEBUG__
             printf("reachalbe from %x to %x\n",nnn,output);
@@ -71,7 +72,7 @@ void getnext(char nnn,char input,char output,int blocks)
             return ;
         input+=((1<<index));
         output+=((1<<index)+(1<<(index+1)));
-        if(input==((1<<Mval)-1))//到达一个可行状态,删除一个可行状态，进行下一步迭代
+        if(input==((1<<Mval)-1))   //到达一个可行状态,删除一个可行状态，进行下一步迭代
         {
 #if __DEBUG__
             printf("reachalbe from %x to %x\n",nnn,output);
@@ -91,7 +92,7 @@ void getnext(char nnn,char input,char output,int blocks)
             return ;
         input+=(1<<index);
         output+=((1<<index)+(1<<(index-1)));
-        if(input==((1<<Mval)-1))//到达一个可行状态,删除一个可行状态，进行下一步迭代
+        if(input==((1<<Mval)-1))   //到达一个可行状态,删除一个可行状态，进行下一步迭代
         {
 #if __DEBUG__
             printf("reachalbe from %x to %x\n",nnn,output);
@@ -149,7 +150,8 @@ void printmatrix(unsigned int matrix[][128])
 
 void FastExponentiation(unsigned int src[][128], unsigned int results[][128], long long times)
 {
-    if (times <= 1)
+    if(times==0)return;
+    if (times == 1)
     {
         memcpy(results, src, sizeof(unsigned int) * 128 * 128);
         return;
@@ -193,8 +195,53 @@ void FastExponentiation(unsigned int src[][128], unsigned int results[][128], lo
 
 }
 
+void FastExponentiation2(unsigned int src[][128], unsigned int results[][128], long long times)
+{
+    unsigned int s1[128][128] = {0};
+    unsigned int s2[128][128] = {0};
+    unsigned int s3[128][128] = {0};
+    long long temp = 0;
+    int i, j, k;
+    for(i=0; i<128; i++)results[i][i]=1;
+//    printmatrix(results);
+    memcpy(s1,src,sizeof(unsigned int)*128*128);
+    while(times)
+    {
+//        printmatrix(s1);
+        memset(s2,0,sizeof(unsigned int)*128*128);
+        if(times&1)
+        {
+            memcpy(s3,results,sizeof(unsigned int)*128*128);
+            memset(results,0,sizeof(unsigned int)*128*128);
+//           printmatrix(s3);
+            for (i = 0; i < (1<<Mval); i++)
+                for (j = 0; j < (1<<Mval); j++)
+                    for (k = 0; k < (1<<Mval); k++)
+                    {
+                        temp = (long long)s3[i][k] * s1[k][j];
+                        results[i][j] += (temp % M) ;
+                        results[i][j] %= M;
+                    }
+        }
+//       printmatrix(results);
+        times=times>>1;
+        for (i = 0; i < (1<<Mval); i++)
+            for (j = 0; j < (1<<Mval); j++)
+                for (k = 0; k < (1<<Mval); k++)
+                {
+                    temp = (long long)s1[i][k] * s1[k][j];
+                    s2[i][j] += (temp % M) ;
+                    s2[i][j] %= M;
+                }
+        memcpy(s1,s2,sizeof(unsigned int)*128*128);
+    }
+    return ;
+
+}
+//#define __DEBUG__ 1
 int main(int argc, char* argv[])
 {
+//    freopen("out.txt", "w", stdout);
     int m;
     long long n;
     unsigned int sss[128][128] = {0};
@@ -206,7 +253,10 @@ int main(int argc, char* argv[])
     printmatrix(matrix);
     printf("\n\n\n");
 #endif
-    FastExponentiation(matrix,sss,n-1);
+//   FastExponentiation(matrix,sss,n-1);
+//    printf("%d\n",sss[0][(1<<m)-1]);
+    memset(sss,0,sizeof(unsigned int)*128*128);
+    FastExponentiation2(matrix,sss,n-1);
     printf("%d\n",sss[0][(1<<m)-1]);
 #if __DEBUG__
     printmatrix(sss);
