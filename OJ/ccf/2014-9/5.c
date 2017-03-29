@@ -22,7 +22,11 @@ int getposition(char a)
 void getnext(char nnn,char input,char output,int blocks)
 {
     int index =getposition(input);
-    if(index >= Mval) return;
+    if(input==((1<<Mval)-1)) 
+    {
+//            matrix[input][output]++;
+            return;
+    }
     switch(blocks)
     {
     case 1:
@@ -123,7 +127,7 @@ void initstates(void)
         getnext(index,index,0,3);
         getnext(index,index,0,4);
     }
-    matrix[index-1][0]=1;
+    matrix[index-1][0]++;
 
     return ;
 
