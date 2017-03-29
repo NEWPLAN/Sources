@@ -80,7 +80,7 @@ def query_domain(start,end):
         else:
             domains[index] = domains[index] + ','+str(rtev6);
         #print(index,domains[index])
-        #time.sleep(0.001);
+        time.sleep(0.001);
     return
 
 
