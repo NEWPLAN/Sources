@@ -217,6 +217,29 @@ def ping_test(addr=None,type=None,loops=None):
     except Exception as e:
         print(e,'error')
 
+def ping_test_linux(addr=None,type=None,loops=None):
+    if addr is None or type is None or loops is None:
+        cmd = 'ping  www.baidu.com -c 1'
+    else:
+        cmd = 'ping -' + type + ' ' + addr + ' -n ' + loops
+    if type == 'v4':
+        cmd = 'ping  www.baidu.com -c 1'
+    rtt=r'[\d]+[\' \']*ms[\' \']*[\r\n]*'
+    matcher=re.compile(rtt)
+    args=shlex.split(cmd)
+    try:
+        p=subprocess.Popen(args,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=False)
+        #p.stdin.write(cmd)
+        #p.stdin.write(cmd.encode('utf-8'))
+        out =p.stdout.read()
+        print(out)
+        print(out.decode('gbk'))
+        groups=matcher.findall(out.decode('gbk'));
+        for index in groups:
+            print(index.strip())
+
+    except Exception as e:
+        print(e,'error')
 
 '''
 import urllib.request
@@ -237,8 +260,9 @@ if __name__ == '__main__':
 # 2402:f000:1:404:166:111:4:100
 # 166.111.4.100
 if __name__ == '__main__':
-    #ping_test()
-    request_url('166.111.4.100', '2402:f000:1:404:166:111:4:100')
+    ping_test_linux()
+    request_url('172.217.5.78', '2607:f8b0:4007:80c::200e')
+    #request_url('166.111.4.100', '2402:f000:1:404:166:111:4:100')
     # save_result()
     #main()
     # get_addr('top-1m.csv');
