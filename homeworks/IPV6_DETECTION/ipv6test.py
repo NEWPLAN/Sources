@@ -102,6 +102,7 @@ def request_url(ipv4=None, ipv6=None, loops=3):
         try:
             startTime = datetime.now().microsecond
             retval = urllib.request.urlopen('http://' + ipv4, timeout=10)
+            #print(retval.geturl())
             html4 = retval.read()
             print('from v4', html4)
             endTime = datetime.now().microsecond
@@ -190,6 +191,31 @@ def Process(url, n):
         n, sumSpan, sumSpan / n, maxSpan, minSpan, over1s))
     print('\n')
 
+import subprocess
+import shlex
+import re
+
+def ping_test(addr=None,type=None,loops=None):
+    if addr is None or type is None or loops is None:
+        cmd = 'ping -4 www.baidu.com -n 1'
+    else:
+        cmd = 'ping -' + type + ' ' + addr + ' -n ' + loops
+    rtt=r'[\d]+[\' \']*ms[\' \']*[\r\n]*'
+    matcher=re.compile(rtt)
+    args=shlex.split(cmd)
+    try:
+        p=subprocess.Popen(args,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=False)
+        #p.stdin.write(cmd)
+        #p.stdin.write(cmd.encode('utf-8'))
+        out =p.stdout.read()
+        print(out)
+        print(out.decode('gbk'))
+        groups=matcher.findall(out.decode('gbk'));
+        for index in groups:
+            print(index.strip())
+
+    except Exception as e:
+        print(e,'error')
 
 
 '''
@@ -211,9 +237,10 @@ if __name__ == '__main__':
 # 2402:f000:1:404:166:111:4:100
 # 166.111.4.100
 if __name__ == '__main__':
+    #ping_test()
     request_url('166.111.4.100', '2402:f000:1:404:166:111:4:100')
     # save_result()
-    main()
+    #main()
     # get_addr('top-1m.csv');
 
     #    main()
