@@ -44,7 +44,7 @@ def save_result(filename=None):
         filename = str(datetime.now()).replace(' ', '_').replace(':', '_') + '.csv'
     counts = 1
     with open(filename, 'w') as f:
-        f.write('domain,ipv4,v4Connect,ipv6,v6connet,v4html,v6html,differents\n')
+        f.write('domain,ipv4,v4Ping,ipv6,v6Ping,v4html,v6html,diffServe\n')
         for index in domains:
             f.write(str(counts) + ',' + str(index) + '\n')
             counts += 1
@@ -97,11 +97,21 @@ def query_domain(start, end):
                 domains[index]+=',NA'
             # print(index,domains[index])
             # time.sleep(0.001);
-        add_compare=''
+        #add_compare=''
+        domain_add=['NA','NA','NA']
         if rtev4 is not None:
             v4_html,v4time=fetch_html(domain,'4')
+            domain_add[0]=v4time;
         if rtev6 is not None:
             v6_html,v6time=fetch_html(domain,'6')
+            domain_add[1]=v6time;
+        if (v4_html is not None) and (v6_html is not None):
+            if v4html==v6_html:
+                domain_add[2]='No diff'
+            else:
+                domain_add[2]='Some diff'
+        print(','.join(domain_add))
+        
         print(domains[index])
     return
 
