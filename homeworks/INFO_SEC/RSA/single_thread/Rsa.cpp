@@ -19,20 +19,20 @@ Rsa::~Rsa()
 void Rsa::init(unsigned int n)
 {
 	srand(time(NULL));
-	//²úÉú´óËØÊıp¡¢q
+	//äº§ç”Ÿå¤§ç´ æ•°pã€q
 	_p=createPrime(n,10);
 	_q=createPrime(n,10);
-	//¼ÆËãN
+	//è®¡ç®—N
 	N=_p*_q;
-	//¼ÆËã³öÅ·À­Êı
+	//è®¡ç®—å‡ºæ¬§æ‹‰æ•°
 	_ol=(_p-1)*(_q-1);
-	//¼ÓÃÜÖ¸Êıe
+	//åŠ å¯†æŒ‡æ•°e
 	createExp(_ol);
 	//d
 }
 
 BigInt Rsa::createOddNum(unsigned int n)
-{//Éú³É³¤¶ÈÎªnµÄÆæÊı
+{//ç”Ÿæˆé•¿åº¦ä¸ºnçš„å¥‡æ•°
 	n=n/4;
 	static unsigned char hex_table[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 	if(n)
@@ -49,19 +49,19 @@ BigInt Rsa::createOddNum(unsigned int n)
 }
 
 bool Rsa::isPrime(const BigInt& n,const unsigned int k)
-{//ÅĞ¶ÏËØÊı
+{//åˆ¤æ–­ç´ æ•°
 	assert(n!=BigInt::Zero);
 	if(n==BigInt::Two)
 		return true;
 
 	BigInt n_1=n-1;
-	BigInt::bit b(n_1);//¶ş½øÖÆÎ»
+	BigInt::bit b(n_1);//äºŒè¿›åˆ¶ä½
 	if(b.at(0)==1)
 		return false;
 
 	for(std::size_t t=0;t<k;++t)
 	{
-		BigInt a=createRandomSmallThan(n_1);//Ëæ»úÊı
+		BigInt a=createRandomSmallThan(n_1);//éšæœºæ•°
 		BigInt d(BigInt::One);
 		for(int i=b.size()-1;i>=0;--i)
 		{
@@ -98,7 +98,7 @@ BigInt Rsa::createRandomSmallThan(const BigInt& a)
 }
 
 BigInt Rsa::createPrime(unsigned int n,int it_count)
-{//Éú³É³¤¶ÈÎªnµÄËØÊı
+{//ç”Ÿæˆé•¿åº¦ä¸ºnçš„ç´ æ•°
 	assert(it_count>0);
 	BigInt res=createOddNum(n);
 	while(!isPrime(res,it_count))
@@ -109,28 +109,28 @@ BigInt Rsa::createPrime(unsigned int n,int it_count)
 }
 
 void Rsa::createExp(const BigInt& ou)
-{//´ÓÒ»¸öÅ·À­ÊıÖĞÉú³É¹«Ô¿¡¢Ë½Ô¿Ö¸Êı
+{//ä»ä¸€ä¸ªæ¬§æ‹‰æ•°ä¸­ç”Ÿæˆå…¬é’¥ã€ç§é’¥æŒ‡æ•°
 	//e=5;
 	e=65537;
 	_d=e.extendEuclid(ou);
 }
 
 BigInt Rsa::encryptByPu(const BigInt& m)
-{//¹«Ô¿¼ÓÃÜ
+{//å…¬é’¥åŠ å¯†
 	return m.moden(e,N);
 }
 
 BigInt Rsa::decodeByPr(const BigInt& c)
-{//Ë½Ô¿½âÃÜ
+{//ç§é’¥è§£å¯†
 	return c.moden(_d,N);
 }
 
 BigInt Rsa::encryptByPr(const BigInt& m)
-{//Ë½Ô¿¼ÓÃÜ
+{//ç§é’¥åŠ å¯†
 	return decodeByPr(m);
 }
 
 BigInt Rsa::decodeByPu(const BigInt& c)
-{//¹«Ô¿½âÃÜ
+{//å…¬é’¥è§£å¯†
 	return encryptByPu(c);
 }
