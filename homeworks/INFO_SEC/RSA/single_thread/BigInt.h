@@ -30,7 +30,7 @@ public:
 	friend bool operator <= (const BigInt& a,const BigInt& b);
 	friend bool operator == (const BigInt& a,const BigInt& b);
 	friend bool operator != (const BigInt& a,const BigInt& b){return !(a==b);}	
-	//ÖØÔØ°æ±¾	
+	//é‡è½½ç‰ˆæœ¬	
 	friend BigInt operator + (const BigInt& a,const long b){BigInt t(b);return a+t;}	
 	friend BigInt operator - (const BigInt& a,const long b){BigInt t(b);return a-t;}	
 	friend BigInt operator * (const BigInt& a,const long b){BigInt t(b);return a*t;}	
@@ -50,13 +50,13 @@ public:
 	BigInt& trim()	
 	{		
 		int count=0;		
-		//¼ì²é²»Îª0µÄÔªËØµÄÊıÁ¿		
+		//æ£€æŸ¥ä¸ä¸º0çš„å…ƒç´ çš„æ•°é‡		
 		for(data_t::reverse_iterator it=_data.rbegin();it!=_data.rend();++it)			
 			if((*it)==0)		
 				++count;
 			else
 				break;
-		if(count==_data.size())//Ö»ÓĞÁãµÄÇé¿ö±£Áô			
+		if(count==_data.size())//åªæœ‰é›¶çš„æƒ…å†µä¿ç•™			
 			--count;
 		for(int i=0;i<count;++i)
 			_data.pop_back();
@@ -73,9 +73,9 @@ public:
 		vector<base_t> _bitvec;
 		std::size_t _size;
 	};		
-	//´óÊıÃİÄ£ÔËËã	
+	//å¤§æ•°å¹‚æ¨¡è¿ç®—	
 	BigInt moden(const BigInt& exp,const BigInt& p)const;
-	/* ÓÃÀ©Õ¹µÄÅ·¼¸ÀïµÃËã·¨Çó³Ë·¨ÄæÔª */	
+	/* ç”¨æ‰©å±•çš„æ¬§å‡ é‡Œå¾—ç®—æ³•æ±‚ä¹˜æ³•é€†å…ƒ */	
 	BigInt extendEuclid(const BigInt& m);
 public:	
 	BigInt():_isnegative(false){_data.push_back(0);}
@@ -106,9 +106,9 @@ public:
 	static BigInt One;
 	static BigInt Two;
 private:
-	bool smallThan(const BigInt& a)const;//ÅĞ¶Ï¾ø¶ÔÖµÊÇ·ñĞ¡ÓÚ
-	bool smallOrEquals(const BigInt& a)const;//ÅĞ¶Ï¾ø¶ÔÖµÊÇ·ñĞ¡ÓÚÏàµÈ
-	bool equals(const BigInt& a)const;//ÅĞ¶Ï¾ø¶ÔÖµÊÇ·ñÏàµÈ
+	bool smallThan(const BigInt& a)const;//åˆ¤æ–­ç»å¯¹å€¼æ˜¯å¦å°äº
+	bool smallOrEquals(const BigInt& a)const;//åˆ¤æ–­ç»å¯¹å€¼æ˜¯å¦å°äºç›¸ç­‰
+	bool equals(const BigInt& a)const;//åˆ¤æ–­ç»å¯¹å€¼æ˜¯å¦ç›¸ç­‰
 
 	BigInt& leftShift(const unsigned int n);
 	BigInt& rightShift(const unsigned int n);
@@ -178,6 +178,6 @@ private:
 	static void div(const BigInt& a,const BigInt& b,BigInt& result,BigInt& ca);
 private:	
 	vector<base_t> _data;
-	//Êı¾İ´æ´¢	
+	//æ•°æ®å­˜å‚¨	
 	bool _isnegative;
 };
