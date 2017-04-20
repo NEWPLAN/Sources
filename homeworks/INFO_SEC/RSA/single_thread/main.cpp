@@ -7,30 +7,30 @@ using std::endl;
 using std::cin;
 
 void menu()
-{//²Ëµ¥ÏÔÊ¾º¯Êı
+{//èœå•æ˜¾ç¤ºå‡½æ•°
 	cout<<"==========Welcome to use RSA encoder=========="<<endl;
-	cout<<"               e.encrypt ¼ÓÃÜ              "<<endl;
-	cout<<"               d.decrypt ½âÃÜ              "<<endl;
-	cout<<"               s.setkey ÖØÖÃ               "<<endl;
-	cout<<"               p.print ÏÔÊ¾               "<<endl;
-	cout<<"               q.quit ÍË³ö                 "<<endl;
+	cout<<"               e.encrypt åŠ å¯†              "<<endl;
+	cout<<"               d.decrypt è§£å¯†              "<<endl;
+	cout<<"               s.setkey é‡ç½®               "<<endl;
+	cout<<"               p.print æ˜¾ç¤º               "<<endl;
+	cout<<"               q.quit é€€å‡º                 "<<endl;
 	cout<<"input your choice:"<<endl;
 }
 
 bool islegal(const string& str)
-{//ÅĞ¶ÏÊäÈëÊÇ·ñºÏ·¨
+{//åˆ¤æ–­è¾“å…¥æ˜¯å¦åˆæ³•
 	for(string::const_iterator it=str.begin();it!=str.end();++it)
-		if(!isalnum(*it))//²»ÊÇ×ÖÄ¸Êı×Ö
+		if(!isalnum(*it))//ä¸æ˜¯å­—æ¯æ•°å­—
 			return false;
 	return true;
 }
 
 bool decode(Rsa& rsa)
-{//½âÃÜ
+{//è§£å¯†
 	string str;
 	do
 	{
-		cout<<">ÊäÈë16½øÖÆÊı¾İ:";
+		cout<<">è¾“å…¥16è¿›åˆ¶æ•°æ®:";
 		cin>>str;
 	}while(cin && str.length()<1);
 	if(!cin || islegal(str)==false)
@@ -40,19 +40,19 @@ bool decode(Rsa& rsa)
 	long t1=clock();
 	BigInt m=rsa.decodeByPr(c);
 	long t2=clock();
-	cout<<"ÓÃÊ±:"<<(t2-t1)<<"ms."<<endl;
+	cout<<"ç”¨æ—¶:"<<(t2-t1)<<"ms."<<endl;
 
-	cout<<"ÃÜÎÄ:"<<c<<endl
-		<<"Ã÷ÎÄ:"<<m<<endl;
+	cout<<"å¯†æ–‡:"<<c<<endl
+		<<"æ˜æ–‡:"<<m<<endl;
 	return true;
 }
 
 bool encry(Rsa& rsa,BigInt& c)
-{//¼ÓÃÜ
+{//åŠ å¯†
 	string str;
 	do
 	{
-		cout<<">ÊäÈë16½øÖÆÊı¾İ:";
+		cout<<">è¾“å…¥16è¿›åˆ¶æ•°æ®:";
 		cin>>str;
 	}while(cin && str.length()<1);
 	if(!cin || islegal(str)==false)
@@ -61,48 +61,48 @@ bool encry(Rsa& rsa,BigInt& c)
 
 	c=rsa.encryptByPu(m);
 
-	cout<<"Ã÷ÎÄ:"<<m<<endl
-		<<"ÃÜÎÄ:"<<c<<endl;
+	cout<<"æ˜æ–‡:"<<m<<endl
+		<<"å¯†æ–‡:"<<c<<endl;
 	return true;
 }
 
 void print(Rsa& rsa)
-{//Êä³ö
+{//è¾“å‡º
 	cout<<rsa<<endl;
 }
 
 void init(Rsa& rsa,int n)
-{//³õÊ¼»¯
+{//åˆå§‹åŒ–
 
-	cout<<"³õÊ¼»¯...."<<endl;
+	cout<<"åˆå§‹åŒ–...."<<endl;
 	long t1=clock();
 	rsa.init(n);
 	long t2=clock();
-	cout<<"³õÊ¼»¯Íê³É."<<endl;
-	cout<<"ÓÃÊ±:"<<(t2-t1)/1000<<"s."<<endl;
+	cout<<"åˆå§‹åŒ–å®Œæˆ."<<endl;
+	cout<<"ç”¨æ—¶:"<<(t2-t1)/1000<<"s."<<endl;
 }
 
 int go()
-{//¿ØÖÆº¯Êı
+{//æ§åˆ¶å‡½æ•°
 	char ch;
 	string str;
 	Rsa rsa;
 	BigInt c,m;
-	cout<<"ÊäÈëÎ»Êı:";
+	cout<<"è¾“å…¥ä½æ•°:";
 	int n;
 	cin>>n;
 	init(rsa,n/2);
 
 	while(true)
 	{
-		menu();//²Ëµ¥ÏÔÊ¾
+		menu();//èœå•æ˜¾ç¤º
 		cout<<">";
 		cin>>str;
 		if(!cin)
 			return 0;
 		
 		if(str.length()<1)
-			cout<<"ÖØĞÂÊäÈë"<<endl;
+			cout<<"é‡æ–°è¾“å…¥"<<endl;
 		else
 		{
 			ch=str.at(0);
@@ -110,19 +110,19 @@ int go()
 			{
 			case 'e':
 			case 'E':
-				encry(rsa,c);//¼ÓÃÜ
+				encry(rsa,c);//åŠ å¯†
 				break;
 			case 'd':
 			case 'D':
-				decode(rsa);//½âÃÜ
+				decode(rsa);//è§£å¯†
 				break;
 			case 's':
 			case 'S':
-				go();//ÖØĞÂ¿ªÊ¼³õÊ¼
+				go();//é‡æ–°å¼€å§‹åˆå§‹
 				break;
 			case 'p':
 			case 'P':
-				print(rsa);//Êä³ö¹«Ë½Ô¿ĞÅÏ¢
+				print(rsa);//è¾“å‡ºå…¬ç§é’¥ä¿¡æ¯
 				break;
 			case 'q':
 			case 'Q':
