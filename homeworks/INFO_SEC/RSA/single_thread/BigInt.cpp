@@ -51,9 +51,9 @@ BigInt operator * (const BigInt& a,const BigInt& b)
 BigInt operator / (const BigInt& a,const BigInt& b)
 {
 	assert(b!=(BigInt::Zero));
-	if(a.equals(b))//¾ø¶ÔÖµÏàµÈ
+	if(a.equals(b))//ç»å¯¹å€¼ç›¸ç­‰
 		return (a._isnegative==b._isnegative)?BigInt(1):BigInt(-1);
-	else if(a.smallThan(b))//¾ø¶ÔÖµĞ¡ÓÚ
+	else if(a.smallThan(b))//ç»å¯¹å€¼å°äº
 		return BigInt::Zero;
 	else
 	{
@@ -80,19 +80,19 @@ BigInt operator % (const BigInt& a,const BigInt& b)
 
 void BigInt::div(const BigInt& a,const BigInt& b,BigInt& result,BigInt& ca)
 {
-	//1.¸´ÖÆa,b
+	//1.å¤åˆ¶a,b
 	BigInt cb(b,false);
 	ca._isnegative=false;
 	ca._data=a._data;
 
 	BigInt::bit bit_b(cb);
-	//Î»Êı¶ÔÆë
-	while(true)//¾ø¶ÔÖµĞ¡ÓÚ
+	//ä½æ•°å¯¹é½
+	while(true)//ç»å¯¹å€¼å°äº
 	{
 		BigInt::bit bit_a(ca);
 		int len=bit_a.size()-bit_b.size();
 		BigInt temp;
-		//ÕÒµ½ÒÆÎ»µÄ
+		//æ‰¾åˆ°ç§»ä½çš„
 		while(len>=0)
 		{
 			temp=cb<<len;
@@ -137,13 +137,13 @@ bool operator < (const BigInt& a,const BigInt& b)
 bool operator <= (const BigInt& a,const BigInt& b)
 {
 	if(a._isnegative==b._isnegative)
-	{//Í¬ºÅ
+	{//åŒå·
 		if(a._isnegative==false)
 			return a.smallOrEquals(b);
 		else
 			return !(a.smallThan(b));
 	}
-	else//ÒìºÅ
+	else//å¼‚å·
 	{
 		if(a._isnegative==false)
 			return true;
@@ -206,13 +206,13 @@ BigInt& BigInt::leftShift(const unsigned int n)
 	{
 		BigInt::base_t T=BigInt::base;//0xffffffff
 		T=T<<(BigInt::basebitnum-off);//32
-		//×óÒÆ
+		//å·¦ç§»
 		BigInt::base_t ch=0;
 		for(std::size_t i=0;i<_data.size();++i)
 		{
 			BigInt::base_t t=_data[i];
 			_data[i]=(t<<off)|ch;
-			ch=(t&T)>>(BigInt::basebitnum-off);//32,×î¸ßÎ»
+			ch=(t&T)>>(BigInt::basebitnum-off);//32,æœ€é«˜ä½
 		}
 	}
 	trim();
@@ -238,13 +238,13 @@ BigInt& BigInt::rightShift(const unsigned int n)
 	{
 		BigInt::base_t T=BigInt::base;//0xFFFFFFFF
 		T=T>>(BigInt::basebitnum-off);//32
-		//×óÒÆ
+		//å·¦ç§»
 		BigInt::base_t ch=0;
 		for(int i=_data.size()-1;i>=0;--i)
 		{
 			BigInt::base_t t=_data[i];
 			_data[i]=(t>>off)|ch;
-			ch=(t&T)<<(BigInt::basebitnum-off);//32,×î¸ßÎ»
+			ch=(t&T)<<(BigInt::basebitnum-off);//32,æœ€é«˜ä½
 		}
 	}
 	trim();
@@ -254,13 +254,13 @@ BigInt& BigInt::rightShift(const unsigned int n)
 BigInt& BigInt::sub(const BigInt& b)
 {
 	if(b._isnegative==_isnegative)
-	{//Í¬ºÅ
+	{//åŒå·
 		
 		BigInt::data_t &res=_data;
-		if(!(smallThan(b)))//¾ø¶ÔÖµ´óÓÚb
+		if(!(smallThan(b)))//ç»å¯¹å€¼å¤§äºb
 		{
-			int cn=0;//½èÎ»
-			//´óÊı¼õĞ¡Êı
+			int cn=0;//å€Ÿä½
+			//å¤§æ•°å‡å°æ•°
 			for(std::size_t i=0;i<b._data.size();++i)
 			{
 				BigInt::base_t temp=res[i];
@@ -276,14 +276,14 @@ BigInt& BigInt::sub(const BigInt& b)
 			}
 			trim();
 		}
-		else//¾ø¶ÔÖµĞ¡ÓÚb
+		else//ç»å¯¹å€¼å°äºb
 		{
 			_data=(b-(*this))._data;
 			_isnegative=!_isnegative;
 		}
 	}
 	else
-	{//ÒìºÅµÄÇé¿ö
+	{//å¼‚å·çš„æƒ…å†µ
 		bool isnegative=_isnegative;
 		_isnegative=b._isnegative;
 		add(b);
@@ -295,15 +295,15 @@ BigInt& BigInt::sub(const BigInt& b)
 BigInt& BigInt::add(const BigInt& b)
 {
 	if(_isnegative==b._isnegative)
-	{//Í¬ºÅ
-		//ÒıÓÃ
+	{//åŒå·
+		//å¼•ç”¨
 		BigInt::data_t &res=_data;
 		int len=b._data.size()-_data.size();
 
-		while((len--)>0)//¸ßÎ»²¹0
+		while((len--)>0)//é«˜ä½è¡¥0
 			res.push_back(0);
 
-		int cn=0;//½øÎ»
+		int cn=0;//è¿›ä½
 		for(std::size_t i=0;i<b._data.size();++i)
 		{
 			BigInt::base_t temp=res[i];
@@ -324,13 +324,13 @@ BigInt& BigInt::add(const BigInt& b)
 		trim();
 	}
 	else
-	{//ÒìºÅµÄÇé¿ö
+	{//å¼‚å·çš„æƒ…å†µ
 		bool isnegative;
-		if(smallThan(b))//¾ø¶ÔÖµĞ¡ÓÚb
+		if(smallThan(b))//ç»å¯¹å€¼å°äºb
 			isnegative=b._isnegative;
-		else if(equals(b))//¾ø¶ÔÖµµÈÓÚb
+		else if(equals(b))//ç»å¯¹å€¼ç­‰äºb
 			isnegative=false;
-		else//¾ø¶ÔÖµ´óÓÚb
+		else//ç»å¯¹å€¼å¤§äºb
 			isnegative=_isnegative;
 
 		_isnegative=b._isnegative;
@@ -341,7 +341,7 @@ BigInt& BigInt::add(const BigInt& b)
 }
 
 BigInt BigInt::moden(const BigInt& exp,const BigInt& p)const
-{//Ä£ÃİÔËËã
+{//æ¨¡å¹‚è¿ç®—
 	BigInt::bit t(exp);
 
 	BigInt d(1);
@@ -355,8 +355,8 @@ BigInt BigInt::moden(const BigInt& exp,const BigInt& p)const
 }
 
 BigInt BigInt::extendEuclid(const BigInt& m)
-{//À©Õ¹Å·¼¸ÀïµÃËã·¨Çó³Ë·¨ÄæÔª
-	assert(m._isnegative==false);//mÎªÕıÊı
+{//æ‰©å±•æ¬§å‡ é‡Œå¾—ç®—æ³•æ±‚ä¹˜æ³•é€†å…ƒ
+	assert(m._isnegative==false);//mä¸ºæ­£æ•°
 	BigInt a[3],b[3],t[3];
 	a[0] = 1; a[1] = 0; a[2] = m;
 	b[0] = 0; b[1] = 1; b[2] = *this;
@@ -367,7 +367,7 @@ BigInt BigInt::extendEuclid(const BigInt& m)
 	{
 		if (b[2] == BigInt::One) 
 		{
-			if(b[1]._isnegative==true)//¸ºÊı
+			if(b[1]._isnegative==true)//è´Ÿæ•°
 				b[1]=(b[1]%m+m)%m;
 			return b[1];
 		}
@@ -398,7 +398,7 @@ bool BigInt::bit::at(std::size_t i)
 BigInt::bit::bit(const BigInt& ba)
 {
 	_bitvec=ba._data;
-	BigInt::base_t a=_bitvec[_bitvec.size()-1];//×î¸ßÎ»
+	BigInt::base_t a=_bitvec[_bitvec.size()-1];//æœ€é«˜ä½
 	_size=_bitvec.size()<<(BigInt::basebit);
 	BigInt::base_t t=1<<(BigInt::basebitnum-1);
 	
@@ -422,7 +422,7 @@ bool BigInt::smallThan(const BigInt& b)const
 			it!=_data.rend();++it,++it_b)
 			if((*it)!=(*it_b))
 				return (*it)<(*it_b);
-		return false;//ÏàµÈ
+		return false;//ç›¸ç­‰
 	}
 	else
 		return _data.size()<b._data.size();
@@ -436,7 +436,7 @@ bool BigInt::smallOrEquals(const BigInt& b)const
 			it!=_data.rend();++it,++it_b)
 			if((*it)!=(*it_b))
 				return (*it)<(*it_b);
-		return true;//ÏàµÈ
+		return true;//ç›¸ç­‰
 	}
 	else
 		return _data.size()<b._data.size();
