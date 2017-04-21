@@ -23,6 +23,7 @@ public:
 private:
 	friend class Rsa;
 	friend void test();
+<<<<<<< HEAD:homeworks/INFO_SEC/RSA/BigInt.h
 public:
 	friend BigInt operator + (const BigInt& a, const BigInt& b);
 	friend BigInt operator - (const BigInt& a, const BigInt& b);
@@ -60,6 +61,45 @@ public:
 			else
 				break;
 		if (count == _data.size()) //Ö»ÓĞÁãµÄÇé¿ö±£Áô
+=======
+public:	
+	friend BigInt operator + (const BigInt& a,const BigInt& b);
+	friend BigInt operator - (const BigInt& a,const BigInt& b);
+	friend BigInt operator * (const BigInt& a,const BigInt& b);	
+	friend BigInt operator / (const BigInt& a,const BigInt& b);	
+	friend BigInt operator % (const BigInt& a,const BigInt& b);	
+	friend bool operator < (const BigInt& a,const BigInt& b);
+	friend bool operator <= (const BigInt& a,const BigInt& b);
+	friend bool operator == (const BigInt& a,const BigInt& b);
+	friend bool operator != (const BigInt& a,const BigInt& b){return !(a==b);}	
+	//é‡è½½ç‰ˆæœ¬	
+	friend BigInt operator + (const BigInt& a,const long b){BigInt t(b);return a+t;}	
+	friend BigInt operator - (const BigInt& a,const long b){BigInt t(b);return a-t;}	
+	friend BigInt operator * (const BigInt& a,const long b){BigInt t(b);return a*t;}	
+	friend BigInt operator / (const BigInt& a,const long b){BigInt t(b);return a/t;}	
+	friend BigInt operator % (const BigInt& a,const long b){BigInt t(b);return a%t;}	
+	friend bool operator < (const BigInt& a,const long b){BigInt t(b);return a<t;}	
+	friend bool operator <= (const BigInt& a,const  long b){BigInt t(b);return a<=t;}	
+	friend bool operator == (const BigInt& a,const long b){BigInt t(b);return a==t;}	
+	friend bool operator != (const BigInt& a,const long b){BigInt t(b);return !(a==t);};	
+	//	
+	friend ostream& operator << (ostream& out,const BigInt& a); 	
+	friend BigInt operator <<(const BigInt& a,unsigned int n);
+public:
+	typedef vector<base_t> data_t;	
+
+	typedef const vector<base_t> const_data_t;	
+	BigInt& trim()	
+	{		
+		int count=0;		
+		//æ£€æŸ¥ä¸ä¸º0çš„å…ƒç´ çš„æ•°é‡		
+		for(data_t::reverse_iterator it=_data.rbegin();it!=_data.rend();++it)			
+			if((*it)==0)		
+				++count;
+			else
+				break;
+		if(count==_data.size())//åªæœ‰é›¶çš„æƒ…å†µä¿ç•™			
+>>>>>>> df09c67d6239f0e687713439c6a18c966ee9bbcc:homeworks/INFO_SEC/RSA/single_thread/BigInt.h
 			--count;
 		for (size_t i = 0; i < count; ++i)
 			_data.pop_back();
@@ -74,11 +114,19 @@ public:
 		bit(const BigInt& a);
 	private:
 		vector<base_t> _bitvec;
+<<<<<<< HEAD:homeworks/INFO_SEC/RSA/BigInt.h
 		size_t _size;
 	};
 	//´óÊıÃİÄ£ÔËËã
 	BigInt moden(const BigInt& exp, const BigInt& p)const;
 	/* ÓÃÀ©Õ¹µÄÅ·¼¸ÀïµÃËã·¨Çó³Ë·¨ÄæÔª */
+=======
+		std::size_t _size;
+	};		
+	//å¤§æ•°å¹‚æ¨¡è¿ç®—	
+	BigInt moden(const BigInt& exp,const BigInt& p)const;
+	/* ç”¨æ‰©å±•çš„æ¬§å‡ é‡Œå¾—ç®—æ³•æ±‚ä¹˜æ³•é€†å…ƒ */	
+>>>>>>> df09c67d6239f0e687713439c6a18c966ee9bbcc:homeworks/INFO_SEC/RSA/single_thread/BigInt.h
 	BigInt extendEuclid(const BigInt& m);
 public:
 	BigInt(): _isnegative(false) {_data.push_back(0);}
@@ -109,9 +157,9 @@ public:
 	static BigInt One;
 	static BigInt Two;
 private:
-	bool smallThan(const BigInt& a)const;//ÅĞ¶Ï¾ø¶ÔÖµÊÇ·ñĞ¡ÓÚ
-	bool smallOrEquals(const BigInt& a)const;//ÅĞ¶Ï¾ø¶ÔÖµÊÇ·ñĞ¡ÓÚÏàµÈ
-	bool equals(const BigInt& a)const;//ÅĞ¶Ï¾ø¶ÔÖµÊÇ·ñÏàµÈ
+	bool smallThan(const BigInt& a)const;//åˆ¤æ–­ç»å¯¹å€¼æ˜¯å¦å°äº
+	bool smallOrEquals(const BigInt& a)const;//åˆ¤æ–­ç»å¯¹å€¼æ˜¯å¦å°äºç›¸ç­‰
+	bool equals(const BigInt& a)const;//åˆ¤æ–­ç»å¯¹å€¼æ˜¯å¦ç›¸ç­‰
 
 	BigInt& leftShift(const unsigned int n);
 	BigInt& rightShift(const unsigned int n);
@@ -182,7 +230,11 @@ private:
 	static void div(const BigInt& a, const BigInt& b, BigInt& result, BigInt& ca);
 private:
 	vector<base_t> _data;
+<<<<<<< HEAD:homeworks/INFO_SEC/RSA/BigInt.h
 	//Êı¾İ´æ´¢
+=======
+	//æ•°æ®å­˜å‚¨	
+>>>>>>> df09c67d6239f0e687713439c6a18c966ee9bbcc:homeworks/INFO_SEC/RSA/single_thread/BigInt.h
 	bool _isnegative;
 };
 
