@@ -44,6 +44,7 @@ def save_result(filename=None):
         filename = str(datetime.now()).replace(' ', '_').replace(':', '_') + '.csv'
     counts = 1
     with open(filename, 'w') as f:
+        f.write('domain,ipv4,v4Connect,ipv6,v6connet,v4html,v6html,differents\n')
         for index in domains:
             f.write(str(counts) + ',' + str(index) + '\n')
             counts += 1
@@ -72,19 +73,36 @@ def query_domain(start, end):
     # print(start,end)
     global domains
     for index in range(start, end):
+        urldomain=domains[index]
         rtev4 = my_query(domains[index], 'A')  # query IPV4
         rtev6 = my_query(domains[index], 'AAAA')  # query IPV6
         if rtev4 is None:
-            domains[index] = domains[index] + ', '
+            domains[index] = domains[index] + ', , '
         else:
             domains[index] = domains[index] + ',' + str(rtev4)
+            ###check the conncetion time
+            retval=ping_test_linux(addr=urldomain,type='v4')
+            if retval is not None:
+                domains[index]+=','+retval
+            else:
+                domains[index]+=',NA'
         if rtev6 is None:
-            domains[index] = domains[index] + ', '
+            domains[index] = domains[index] + ', , '
         else:
             domains[index] = domains[index] + ',' + str(rtev6)
+            retval=ping_test_linux(addr=urldomain,type='v6')
+            if retval is not None:
+                domains[index]+=','+retval
+            else:
+                domains[index]+=',NA'
             # print(index,domains[index])
             # time.sleep(0.001);
-
+        add_compare=''
+        if rtev4 is not None:
+            v4_html,v4time=fetch_html(domain,'4')
+        if rtev6 is not None:
+            v6_html,v6time=fetch_html(domain,'6')
+        print(domains[index])
     return
 
 
@@ -147,12 +165,12 @@ def main():
     print('loading %d domain from top-1m.csv using %f Seconds;\
     \n now testing dns using %d threads!' % (len(domains), (time2 - time1).total_seconds(), N))
 
-    for index in range(0, len(domains) // 1000):
+    for index in range(0, len(domains) // 100000):
         thread_id.append(threading.Thread(target=query_domain,
-                                          args=(index * 1000, (index + 1) * 1000)))
-    for index in range(0, len(domains) // 1000):
+                                          args=(index * 100000, (index + 1) * 100000)))
+    for index in range(0, len(domains) // 100000):
         thread_id[index].start()
-    for index in range(0, len(domains) // 1000):
+    for index in range(0, len(domains) // 100000):
         thread_id[index].join()
     time1 = datetime.now()
     print('all finished using %d Seconds' % (time1 - time2).total_seconds())
@@ -194,7 +212,7 @@ import subprocess
 import shlex
 import re
 
-
+# for windows system
 def ping_test(addr=None, type=None, loops=None):
     if addr is None or type is None or loops is None:
         cmd = 'ping -4 www.baidu.com -n 1'
@@ -218,15 +236,21 @@ def ping_test(addr=None, type=None, loops=None):
     except Exception as e:
         print(e, 'error')
 
-
-def ping_test_linux(addr=None, type=None, loops=None):
-    if addr is None or type is None or loops is None:
-        cmd = 'ping  www.baidu.com -c 1'
+#for linux system
+def ping_test_linux(addr=None, type=None, loops=1):
+    cmd =''
+    if type =='v4':
+        cmd+='ping '
+    else :
+        cmd+='ping6 '
+    if addr is not None:
+        cmd += addr+' ';
     else:
-        cmd = 'ping -' + type + ' ' + addr + ' -n ' + loops
-    if type == 'v4':
-        cmd = 'ping  www.baidu.com -c 1'
-    rtt = r'[\d]+[\' \']*ms[\' \']*[\r\n]*'
+        cmd +='www.baidu.com '
+    if loops >=1:
+        cmd += '-c '+str(loops)
+
+    rtt = r'([\d]+[\.]{0,1}[\d]+[\' \']*ms)[\' \']*[\r\n]*'
     matcher = re.compile(rtt)
     args = shlex.split(cmd)
     try:
@@ -235,12 +259,14 @@ def ping_test_linux(addr=None, type=None, loops=None):
         # p.stdin.write(cmd)
         # p.stdin.write(cmd.encode('utf-8'))
         out = p.stdout.read()
-        print(out)
-        print(out.decode('gbk'))
-        groups = matcher.findall(out.decode('gbk'));
-        for index in groups:
-            print(index.strip())
-
+        #print(out)
+        #print(out.decode('gbk'))
+        groups = matcher.findall(out.decode('utf-8'));
+        if groups is not None and len(groups) !=0:
+            return groups[0]
+        return
+#        for index in groups:
+#            print(index.strip())
     except Exception as e:
         print(e, 'error')
 
@@ -251,46 +277,63 @@ def fetch_html(domain=None, type=None):
     else:
         cmd = 'curl --connect-timeout 1 -m 20 -' + type + ' -L ' + domain
     args = shlex.split(cmd)
-    print(cmd)
+    deltaTime=0
+    #print(cmd)
     try:
+        startTime = datetime.now().microsecond;
         p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE, shell=False)
+        
+        endTime = datetime.now().microsecond;
         out = p.stdout.read()
+        deltaTime=endTime-startTime
         #err=p.stderr.read()
-        print(out)
-        print(out.decode('utf-8'))
-        #print(err)
-        #print(err.decode('utf-8'))
-        return out.decode('utf-8')
+        try:
+            #print(out)
+            #print(out.decode('utf-8'))
+            #print(err)
+            #print(err.decode('utf-8'))
+            return out.decode('utf-8'),deltaTime
+        except Exception as e:
+            #print(e,'error in decode')
+            return out,deltaTime
     except Exception as e:
         print(e, 'error')
 
 
 def diff_compare(domain=None):
     if domain is None:
-        return ' '
-    v4_html=fetch_html('www.tsinghua.edu.cn','4')
-    v6_html=fetch_html('www.tsinghua.edu.cn','6')
+        return 'domain is empty'
+    v4_html,v4time=fetch_html(domain,'4')
+    v6_html,v6time=fetch_html(domain,'6')
+    #print(v4time,v6time)
+    if v6_html is None or v4_html is None:
+        #print('can not fetch pages')
+        return v4time,v6time,'can\'t fetch htmls'
     if len(v6_html) and len(v4_html):
         if v4_html ==v6_html:
-            print('no difference')
-            return 'no difference'
+            #print('no difference')
+            return v4time,v6time,'no difference'
         else:
-            print('some differences')
-            return 'some differences'
+            #print('some differences')
+            return v4time,v6time,'some differences'
     else:
-        print('can\'t fetch htmls')
-        return 'can\'t fetch htmls'
+        #print('can\'t fetch htmls')
+        return v4time,v6time,'can\'t fetch htmls'
 
 # 2402:f000:1:404:166:111:4:100
 # 166.111.4.100
 if __name__ == '__main__':
-    diff_compare('www.tsinghua.edu.cn')
-    #ping_test_linux()
+    v4time,v6time,differ=diff_compare('www.baidu.com')
+    retval4=ping_test_linux(addr='baidu.com',type='v4')
+    retval6=ping_test_linux(addr='google.com',type='v6')
+    print(v4time,v6time,differ)
+    print('ipv4',retval4)
+    print('ipv6',retval6)
     #request_url('172.217.5.78', '2607:f8b0:4007:80c::200e')
     # request_url('166.111.4.100', '2402:f000:1:404:166:111:4:100')
     # save_result()
-    # main()
+    #main()
     # get_addr('top-1m.csv');
 
     #    main()

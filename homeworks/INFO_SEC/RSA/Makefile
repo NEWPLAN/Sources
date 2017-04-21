@@ -5,7 +5,10 @@ SRC=BigInt.cpp Rsa.cpp main.cpp
 HEAD=BigInt.h Rsa.h
 OBJS=BigInt.o Rsa.o main.o
 CPP=g++
-CPPFLAGS+= -Wall
+STD= -std=c++11
+VERSION=-m64
+DEBUG=-g
+CPPFLAGS+= -Wall $(STD) $(VERSION) $(DEBUG)
 
 all:$(TARGET)
 	@echo "make done"
