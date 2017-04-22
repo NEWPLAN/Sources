@@ -274,7 +274,7 @@ BigInt& BigInt::sub(const BigInt& b)
 			{
 				BigInt::base_t temp = res[i];
 				res[i] = res[i] - cn;
-				cn = temp < cn;
+				cn = temp < (unsigned long)cn;
 			}
 			trim();
 		}
@@ -367,8 +367,7 @@ BigInt BigInt::extendEuclid(const BigInt& m)
 	BigInt a[3], b[3], t[3];
 	a[0] = 1; a[1] = 0; a[2] = m;
 	b[0] = 0; b[1] = 1; b[2] = *this;
-	if (b[2] == BigInt::Zero || b[2] == BigInt::One)
-		return b[2];
+	if (b[2] == BigInt::Zero || b[2] == BigInt::One)return b[2];
 
 	while (true)
 	{
@@ -399,7 +398,7 @@ bool BigInt::bit::at(size_t i)
 	size_t index = i >> (BigInt::basebit);
 	size_t off = i & (BigInt::basebitchar);
 	BigInt::base_t t = _bitvec[index];
-	return (t & (1 << off));
+	return (t & (1 << off))?1:0;
 }
 
 BigInt::bit::bit(const BigInt& ba)

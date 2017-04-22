@@ -4,31 +4,36 @@
 #include<ctime>
 #include<cstdlib>
 #include <thread>
+#include<process.h>
+#include<chrono>
+#include<mutex>
 
 using namespace std;
 
+static mutex mtx;
+
 Rsa::Rsa()
 {
-	long prims[168] = { 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,
-		101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,
-		211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,
-		307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,
-		401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,
-		503,509,521,523,541,547,557,563,569,571,577,587,593,599,
-		601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,
-		701,709,719,727,733,739,743,751,757,761,769,773,787,797,
-		809,811,821,823,827,829,839,853,857,859,863,877,881,883,887,
-		907,911,919,929,937,941,947,953,967,971,977,983,991,997 };
-	for (int index = 0; index < 168; index++)
+	long prims[168] = /*1000以内的全部素数*/
+	{ 
+		2,  3,  5,  7,  11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73,
+		79, 83, 89, 97, 101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,
+		191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,
+		311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,409,419,421,431,433,
+		439,443,449,457,461,463,467,479,487,491,499,503,509,521,523,541,547,557,563,569,571,
+		577,587,593,599,601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,701,
+		709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,823,827,829,839,853,
+		857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997 
+	};
+	for (int index = 0; index < 168; index++)/*构造1000以内的全部素数，预处理*/
 		this->below_1000[index] = BigInt(prims[index]);
 }
 
-Rsa::~Rsa()
-{}
+Rsa::~Rsa(){ }
 
 void Rsa::init(unsigned int n)
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	//产生大素数p、q
 	_p = createPrime(n, 10);
 	_q = createPrime(n, 10);
@@ -65,7 +70,7 @@ bool Rsa::isPrime(const BigInt& n, const unsigned int k)
 	assert(n != BigInt::Zero);
 	if (n == BigInt::Two) return true;
 
-	//先进行预判断，排除掉1-1000内所有的素数
+	//先进行预判断，排除掉1-1000内所有的素数的公倍数
 	for (int index = 0; index < 168; index++)
 	{
 		if (n%this->below_1000[index] == BigInt::Zero)
@@ -88,8 +93,7 @@ bool Rsa::isPrime(const BigInt& n, const unsigned int k)
 		{
 			BigInt x = d;
 			d = (d * d) % n;
-			if (d == BigInt::One && x != BigInt::One && x != n_1)
-				return false;
+			if (d == BigInt::One && x != BigInt::One && x != n_1)return false;
 
 			if (b.at(i))
 			{
@@ -97,8 +101,7 @@ bool Rsa::isPrime(const BigInt& n, const unsigned int k)
 				d = (a * d) % n;
 			}
 		}
-		if (d != BigInt::One)
-			return false;
+		if (d != BigInt::One)return false;
 	}
 	return true;
 }
@@ -109,19 +112,14 @@ BigInt Rsa::createRandomSmallThan(const BigInt& a)
 	do
 	{
 		t = rand();
-	}
-	while (t == 0);
+	}while (t == 0);
 
 	BigInt mod(t);
 	BigInt r = mod % a;
-	if (r == BigInt::Zero)
-		r = a - BigInt::One;
+	if (r == BigInt::Zero)r = a - BigInt::One;
 	return r;
 }
-#include<process.h>
-#include<chrono>
-#include<mutex>
-std::mutex mtx;
+
 bool Rsa::enchance_isPrime(const BigInt* a, const unsigned int k, int* flag)
 {
 	for (int index = 0;; index++)
@@ -146,7 +144,7 @@ bool Rsa::enchance_isPrime(const BigInt* a, const unsigned int k, int* flag)
 				mtx.unlock();
 				//cout << "is not prime\t" /*<<a[index]*/<< endl;
 			}
-			else//find prime
+			else//find a prime
 			{
 				mtx.lock();
 				flag[index] = 1;

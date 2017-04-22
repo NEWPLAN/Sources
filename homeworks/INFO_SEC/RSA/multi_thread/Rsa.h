@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __RSA__
+#define __RSA__
+
 #include"BigInt.h"
 class Rsa
 {
@@ -23,19 +25,20 @@ private:
 	BigInt createRandomSmallThan(const BigInt& a);//创建小数
 	friend ostream& operator <<(ostream& out,const Rsa& rsa)//输出
 	{
-		out<<"N:"<<rsa.N<<"\n";
-		out<<"p:"<<rsa._p<<"\n";
-		out<<"q:"<<rsa._q<<"\n";
-		out<<"e:"<<rsa.e<<"\n";
-		out<<"d:"<<rsa._d;
+		out<<"N:\t"<<rsa.N<<"\n";
+		out<<"p:\t"<<rsa._p<<"\n";
+		out<<"q:\t"<<rsa._q<<"\n";
+		out<<"e:\t"<<rsa.e<<"\n";
+		out<<"d:\t"<<rsa._d;
 		return out;
 	}
 public:
-	BigInt e,N;//公钥
+	BigInt e,N;//公钥，e是素数，N=p*q
 private:
-	BigInt _d;//私钥
-	BigInt _p,_q;//
-	BigInt _ol;//欧拉数
+	BigInt _d;//私钥(私钥)
+	BigInt _p,_q;//生成的大素数，构造N和_ol
+	BigInt _ol;//欧拉数_ol(N)=(p-1)(q-1)
 private:
 	BigInt below_1000[168];
 };
+#endif

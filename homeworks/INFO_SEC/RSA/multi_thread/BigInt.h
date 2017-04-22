@@ -1,16 +1,16 @@
-#pragma once
+#ifndef __BIGNUM__
+#define __BIGNUM__
+
 #include<vector>
 #include<string>
 #include<cassert>
 #include<iostream>
 #include <algorithm>
-using std::ostream;
-using std::vector;
-using std::string;
+
+using namespace std;
 
 class BigInt
 {
-
 public:
 	typedef unsigned long base_t;
 	static int base_char;
@@ -18,9 +18,11 @@ public:
 	static int basebitnum;
 	static int basebitchar;
 	static int basebit;
+
 private:
 	friend class Rsa;
 	friend void test();
+
 public:
 	friend BigInt operator + (const BigInt& a, const BigInt& b);
 	friend BigInt operator - (const BigInt& a, const BigInt& b);
@@ -46,21 +48,17 @@ public:
 	friend BigInt operator <<(const BigInt& a, unsigned int n);
 public:
 	typedef vector<base_t> data_t;
-
 	typedef const vector<base_t> const_data_t;
+
 	BigInt& trim()
 	{
 		int count = 0;
 		//检查不为0的元素的数量
 		for (data_t::reverse_iterator it = _data.rbegin(); it != _data.rend(); ++it)
-			if ((*it) == 0)
-				++count;
-			else
-				break;
-		if (count == _data.size()) //只有零的情况保留
-			--count;
-		for (int i = 0; i < count; ++i)
-			_data.pop_back();
+			if ((*it) == 0) ++count;
+			else break;
+		if (count == _data.size())--count; //只有零的情况保留
+		for (int i = 0; i < count; ++i) _data.pop_back();
 		return *this;
 	}
 	friend class bit;
@@ -74,18 +72,26 @@ public:
 		vector<base_t> _bitvec;
 		size_t _size;
 	};
-	//大数幂模运算
-	BigInt moden(const BigInt& exp, const BigInt& p)const;
-	/* 用扩展的欧几里得算法求乘法逆元 */
-	BigInt extendEuclid(const BigInt& m);
+	
+	BigInt moden(const BigInt& exp, const BigInt& p)const;//大数幂模运算	
+	BigInt extendEuclid(const BigInt& m);/* 用扩展的欧几里得算法求乘法逆元 */
 public:
-	BigInt(): _isnegative(false) {_data.push_back(0);}
-
-	BigInt(const string& num): _data(), _isnegative(false) {copyFromHexString(num); trim();}
-
-	BigInt(const long n): _isnegative(false) {copyFromLong(n);}
-
-	BigInt(const_data_t data): _data(data), _isnegative(false) {trim();}
+	BigInt(): _isnegative(false) 
+	{
+		_data.push_back(0);
+	}
+	BigInt(const string& num): _data(), _isnegative(false) 
+	{
+		copyFromHexString(num); trim();
+	}
+	BigInt(const long n): _isnegative(false) 
+	{
+		copyFromLong(n);
+	}
+	BigInt(const_data_t data): _data(data), _isnegative(false) 
+	{
+		trim();
+	}
 
 	BigInt& operator =(string s)
 	{
@@ -95,7 +101,8 @@ public:
 		trim();
 		return *this;
 	}
-	BigInt(const BigInt& a, bool isnegative): _data(a._data), _isnegative(isnegative) {}
+	BigInt(const BigInt& a, bool isnegative): _data(a._data), _isnegative(isnegative)
+	{	}
 	BigInt& operator =(const long n)
 	{
 		_data.clear();
@@ -129,12 +136,11 @@ private:
 		int count = (8 - (str.length() % 8)) % 8;
 		std::string temp;
 
-		for (int i = 0; i < count; ++i)
-			temp.push_back(0);
+		for (int i = 0; i < count; ++i)temp.push_back(0);
 
 		str = temp + str;
 
-		for (int i = 0; i < str.length(); i += BigInt::base_char)
+		for (size_t i = 0; i < str.length(); i += BigInt::base_char)
 		{
 			base_t sum = 0;
 			for (int j = 0; j < base_char; ++j)
@@ -163,7 +169,7 @@ private:
 
 	void copyFromLong(const long n)
 	{
-		long a = n;
+		long long a = n;
 		if (a < 0)
 		{
 			_isnegative = true;
@@ -179,7 +185,7 @@ private:
 	}
 	static void div(const BigInt& a, const BigInt& b, BigInt& result, BigInt& ca);
 private:
-	vector<base_t> _data;
-	//数据存储
+	vector<base_t> _data;//数据存储
 	bool _isnegative;
 };
+#endif
