@@ -36,13 +36,38 @@ def main():
         print(res)
 
     while True:
-        for index in fileindex:
+        flags=[0 for i in range(len(fileindex))]
+        for index,ii in zip(fileindex,range(len(fileindex))):
             res = index.readline()
-            print(res)
-
-
+            if res is '':
+                print('end for file\n')
+                flags[ii]=1
+            else:
+                print(res)
+        if 0 not in flags:
+            break
     for index in fileindex:
         index.close()
+
+def count_one_record(abc=[]):
+    if abc is None or abc is '' or abc is []:
+        return  -1
+    tables=['index','domain','ipv4 counts','ping ipv4','ipv6 counts','ping ipv6','v4 html','v6 html','service']
+    record=[0 for i in range(len(tables)+1)]
+    if '.' in abc[2]:# ipv4 addr
+        record[2]+=1
+    if ':' in abc[4]:# ipv6 addr
+        record[6]+=1
+    if 'diff' in abc[7]:
+        record[7]+=1
+        if 'some' in abc[7]:
+            record[8]+=1
+
+        
+
+
+
+
 
 
 def dump_file(filename):
@@ -82,6 +107,116 @@ def loadfile(filename):
     return
 
 
+def parser_onebyone():
+    global allfile
+    eachfile = allfile.strip('\n').split('\n')
+    fileindex = []
+    print(len(eachfile))
+    for index in eachfile:
+        has_v4_addr=0
+        has_v6_addr=0
+
+        connect_v4_addr=0
+        connect_v6_addr=0
+        connect_v4_fast=0
+        connect_v6_fast=0
+
+        fetch_v4_html=0
+        fetch_v6_html=0
+        fetch_v4_fast=0
+        fetch_v6_fast=0
+
+        differ_service=0
+        same_service=0
+
+        with open(index ,'r') as f:
+            print('---------------')
+            print(f.readline())
+            print('first line')
+            for eachline in f:
+                item=eachline.split(',')
+                tables = ['index', 'domain', 'v4_counts', 'ping_v4', 'v6_counts', 'ping_v6', 'v4_html',
+                          'v6_html', 'service']
+
+                #print(item)
+
+                ping_v4=0
+                ping_v6=0
+                fetch_v4=0
+                fetch_v6=0
+
+                if '.' in item[tables.index('v4_counts')]:
+                    #print('has ipv4')
+                    has_v4_addr+=1
+                else:
+                    pass
+                    #print('no ipv4')
+
+                if ':' in item[tables.index('v6_counts')]:
+                    #print('has ipv6')
+                    has_v6_addr+=1
+                else:
+                    pass
+                    #print('no ipv6')
+
+
+                if 'ms' in item[tables.index('ping_v4')]:
+                    #print('ping v4 success')
+                    connect_v4_addr+=1
+                    ping_v4=float(item[tables.index('ping_v4')].replace('ms','').replace(' ',''))
+                else:
+                    pass
+                    #print('ping v4 failed')
+                if 'ms' in item[tables.index('ping_v6')]:
+                    connect_v6_addr+=1
+                    ping_v6 = float(item[tables.index('ping_v6')].replace('ms', '').replace(' ', ''))
+                    #print('ping v6 success')
+                else:
+                    pass
+                    #print('ping v6 failed')
+
+                if ping_v4 and ping_v6:
+                    if ping_v4 < ping_v6:
+                        connect_v4_fast+=1
+                    else:
+                        connect_v6_fast+=1
+
+                if 'ms' in item[tables.index('v4_html')]:
+                    fetch_v4 = float(item[tables.index('v4_html')].replace('ms', '').replace(' ', ''))
+                    fetch_v4_html+=1
+                    #print('fetch v4 html success')
+                if 'ms' in item[tables.index('v6_html')]:
+                    fetch_v6 = float(item[tables.index('v6_html')].replace('ms', '').replace(' ', ''))
+                    fetch_v6_html+=1
+                    #print('fetch v6 html success')
+
+                if fetch_v4 and fetch_v6:
+                    if fetch_v4 < fetch_v6:
+                        fetch_v4_fast+=1
+                    else:
+                        fetch_v6_fast+=1
+
+                if 'No' in item[tables.index('service')]:
+                    #print('No differ')
+                    same_service+=1
+                elif 'Some' in item[tables.index('service')]:
+                    #print('some differ')
+                    differ_service+=1
+                else:
+                    pass
+                    #print('No answer')
+            print("has v4 addr: %d\nhas v6_addr: %d\nconnect v4 success: %d\nconnect v6 success: %d\n"
+                  "v4 faster in connect: %d\nv6 faster in connect: %d\nfetch v4 html success: %d\n"
+                  "fetch v6 html success: %d\nv 4faster in fetch html: %d\nv6 faster in fetch html: %d\n"
+                  "differ in service: %d\nno differ in service: %d"
+                  %(has_v4_addr,has_v6_addr,
+                   connect_v4_addr,connect_v6_addr,connect_v4_fast,connect_v6_fast,
+                   fetch_v4_html,fetch_v6_html,fetch_v4_fast,fetch_v6_fast,
+                   differ_service,same_service))
+
+
+
 if __name__ == "__main__":
-    main()
+    parser_onebyone()
+    #main()
     # loadfile('parser.py')
