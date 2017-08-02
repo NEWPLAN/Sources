@@ -6,6 +6,7 @@ sudo apt-get install vim python-dev python3-dev cmake build-essential
 https://github.com/tpope/vim-pathogen
 #### 安装指令：
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \\
+
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 
