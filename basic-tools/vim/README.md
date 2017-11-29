@@ -18,6 +18,7 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 //可以直接跳过吧
 ## 3: 安装'molokai'配色方案
 git clone https://github.com/tomasr/molokai && mv -f molokai/* ~/.vim/ && rm -rf molokai
+
 line  629:
 
 E185: Cannot find color scheme 'molokai'
