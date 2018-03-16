@@ -18,7 +18,7 @@
 ##[basic-tools](#Menu)
 <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;A set of useful tools configuration, including sublime3, vim ,etc. </br>
 configeration for vim is including show line numbers and Youcompleteme to complete code automatically.</br>
-confieration for sublime is about setup the fontstyle, wrap, updates, etc. besides, formatyle is another excellent tools to format your source code at the moment you tab 'CTRL+s' </br>
+configeration for sublime is about setup the fontstyle, wrap, updates, etc. besides, formatyle is another excellent tools to format your source code at the moment you tab 'CTRL+s' </br>
 Exploring more exciting configeration, please refer in details.</p>
 
 <a name="project"></a>
