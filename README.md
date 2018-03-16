@@ -2,7 +2,7 @@
 ====================
 
 <a name="Menu"></a>
-##Menu
+## Menu
 [Menu](#Menu)</br>
 [Declaration](#Declaration)</br>
 [basic-tools](#basic-tools)</br>
@@ -16,7 +16,10 @@
 
 <a name="basic-tools"></a>
 ##[basic-tools](#Menu)
-<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;A set of useful tools configuration, including sublime3, vim ,etc. In fact i just push some basic configuration and you are suppose to install a lot of plugins and programs to make it run correctly according some more informations in details.</p>
+<p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;A set of useful tools configuration, including sublime3, vim ,etc. </br>
+configeration for vim is including show line numbers and Youcompleteme to complete code automatically.</br>
+confieration for sublime is about setup the fontstyle, wrap, updates, etc. besides, formatyle is another excellent tools to format your source code at the moment you tab 'CTRL+s' </br>
+Exploring more exciting configeration, please refer in details.</p>
 
 <a name="project"></a>
 ##[project](#Menu)
