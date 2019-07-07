@@ -1,0 +1,23 @@
+{
+    "ignore": [
+        ".vscode",
+        ".git",
+        ".DS_Store"
+    ],
+    "protocol": "sftp",
+    "port": 22,
+    "remotePath": "PATH-TO_YOUR_REMOTE_FOLDER",
+    "uploadOnSave": true,
+    "profiles": {
+        "g8": {
+            "host": "192.168.15.XXX",
+            "username": "XXXX",
+            "password": "XXXX"
+        },
+        "g9": {
+            "host": "192.168.15.XXXX",
+            "username": "XXXX",
+            "password": "XXXX"
+        }
+    }
+}
